@@ -16,15 +16,15 @@
 
 ; ================ Global defaults ================
 
-; Default everything to be bash
-(recipe_body
-  !shebang
-  (#set! injection.language "bash")
-  (#set! injection.include-children)) @injection.content
-
-(external_command
-  (command_body) @injection.content
-  (#set! injection.language "bash"))
+;; Default everything to be bash
+; (recipe_body
+;   !shebang
+;   (#set! injection.language "bash")
+;   (#set! injection.include-children)) @injection.content
+;
+; (external_command
+;   (command_body) @injection.content
+;   (#set! injection.language "bash"))
 
 ; ================ Global language specified ================
 ; Global language is set with something like one of the following:
@@ -32,28 +32,30 @@
 ;    set shell := ["bash", "-c", ...]
 ;    set shell := ["pwsh.exe"]
 ;
-; We can extract the first item of the array, but we can't extract the language
-; name from the string with something like regex. So instead we special case
-; two things: powershell, which is likely to come with a `.exe` attachment that
-; we need to strip, and everything else which hopefully has no extension. We
-; separate this with a `#match?`.
+; We extract the first item of the array and its string_content. The old query
+; had special cases for powershell (incl maybe `.exe`) and everything that has
+; no extension ("hopefully" ???), which is then separated with a `#match?`. This
+; author has no clue whether we still need this, but absent more experience with
+; treesitter, he tried to replicate it to keep it around.
 ;
-; Unfortunately, there also isn't a way to allow arbitrary nesting or
-; alternatively set "global" capture variables. So we can set this for item-
-; level external commands, but not for e.g. external commands within an
-; expression without getting _really_ annoying. Should at least look fine since
-; they default to bash. Limitations...
-; See https://github.com/tree-sitter/tree-sitter/issues/880 for more on that.
+; > [...] Should at least look fine since they default to bash. Limitations...
+; > See https://github.com/tree-sitter/tree-sitter/issues/880 for more on that.
+;
+; Heartbreaking: Idk how to make the default/fallback bash highlights play nice
+; with the dynamic injection, so I removed it. They fight over the priorities,
+; with whether one highlights over the other being apparently completely random.
 
 (source_file
-  (setting "shell" ":=" "[" (string) @_langstr
-    (#match? @_langstr ".*(powershell|pwsh|cmd).*")
+  (setting
+    "shell"
+    element: (string (string_content) @_lang
+      (#match? @_lang ".*(powershell|pwsh|cmd).*"))
     (#set! injection.language "powershell"))
   [
     (recipe
       (recipe_body
-        !shebang
-        (#set! injection.include-children)) @injection.content)
+        !shebang) @injection.content
+      (#set! injection.include-children))
 
     (assignment
       (expression
@@ -63,13 +65,15 @@
   ])
 
 (source_file
-  (setting "shell" ":=" "[" (string) @injection.language
-    (#not-match? @injection.language ".*(powershell|pwsh|cmd).*"))
+  (setting
+    "shell"
+    element: (string (string_content) @injection.language
+      (#not-match? @injection.language ".*(powershell|pwsh|cmd).*")))
   [
     (recipe
       (recipe_body
-        !shebang
-        (#set! injection.include-children)) @injection.content)
+        !shebang) @injection.content
+      (#set! injection.include-children))
 
     (assignment
       (expression
@@ -77,6 +81,35 @@
           (external_command
             (command_body) @injection.content))))
   ])
+
+; ================ Script interpreter specified ================
+
+(source_file
+  (setting
+    left: (identifier) @_setting_name
+    element: (string (string_content) @_lang
+      (#match? @_lang ".*(powershell|pwsh|cmd).*")
+      (#eq? @_setting_name "script-interpreter")
+      (#set! injection.language "powershell")))
+  (recipe
+    (attribute
+      (identifier) @_attr
+      (#eq? @_attr "script"))
+    (recipe_body) @injection.content
+    (#set! injection.include-children)))
+
+(source_file
+  (setting
+    left: (identifier) @_setting_name
+    element: (string (string_content) @injection.language
+      (#not-match? @injection.language ".*(powershell|pwsh|cmd).*")
+      (#eq? @_setting_name "script-interpreter")))
+  (recipe
+    (attribute
+      (identifier) @_attr
+      (#eq? @_attr "script"))
+    (recipe_body) @injection.content
+    (#set! injection.include-children)))
 
 ; ================ Recipe language specified ================
 
