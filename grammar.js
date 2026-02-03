@@ -343,15 +343,35 @@ export default grammar({
         $._raw_string_indented,
         $._string,
         // _raw_string, can't be written as a separate inline for osm reason
-        /'[^']*'/,
+        seq("'", optional(alias(repeat1(/[^']+/), $.string_content)), "'"),
       ),
 
-    _raw_string_indented: (_) => seq("'''", repeat(/./), "'''"),
-    _string: ($) => seq('"', repeat(choice($.escape_sequence, /[^\\"]+/)), '"'),
+    _raw_string_indented: ($) =>
+      seq("'''", optional(alias(repeat1(/./), $.string_content)), "'''"),
+    _string: ($) =>
+      seq(
+        '"',
+        optional(
+          alias(
+            repeat1(choice($.escape_sequence, /[^\\"]+/)),
+            $.string_content,
+          ),
+        ),
+        '"',
+      ),
     // We need try two separate munches so neither escape sequences nor
     // potential closing quotes get eaten.
     _string_indented: ($) =>
-      seq('"""', repeat(choice($.escape_sequence, /[^\\]?[^\\"]+/)), '"""'),
+      seq(
+        '"""',
+        optional(
+          alias(
+            repeat1(choice($.escape_sequence, /[^\\]?[^\\"]+/)),
+            $.string_content,
+          ),
+        ),
+        '"""',
+      ),
 
     escape_sequence: (_) => ESCAPE_SEQUENCE,
 

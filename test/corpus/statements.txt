@@ -19,7 +19,8 @@ foo := "abc"
     (identifier)
     (expression
       (value
-        (string)))))
+        (string
+          (string_content))))))
 
 ================================================================================
 expression
@@ -34,9 +35,11 @@ foo := "abc" + 'def'
     (identifier)
     (expression
       (value
-        (string))
+        (string
+          (string_content)))
       (value
-        (string)))))
+        (string
+          (string_content))))))
 
 ================================================================================
 paths
@@ -53,19 +56,23 @@ combined := "foo" / bar() / baz
     (identifier)
     (expression
       (value
-        (string))
+        (string
+          (string_content)))
       (value
-        (string))))
+        (string
+          (string_content)))))
   (assignment
     (identifier)
     (expression
       (value
-        (string))))
+        (string
+          (string_content)))))
   (assignment
     (identifier)
     (expression
       (value
-        (string))
+        (string
+          (string_content)))
       (value
         (function_call
           (identifier)))
@@ -125,18 +132,22 @@ foo := if a == "x" {
               (identifier)))
           (expression
             (value
-              (string))))
+              (string
+                (string_content)))))
         (expression
           (value
-            (string)))
+            (string
+              (string_content))))
         (else_if_clause
           (condition
             (expression
               (value
-                (string)))
+                (string
+                  (string_content))))
             (expression
               (value
-                (string))))
+                (string
+                  (string_content)))))
           (expression
             (value
               (function_call
@@ -144,15 +155,18 @@ foo := if a == "x" {
                 (sequence
                   (expression
                     (value
-                      (string))))))))
+                      (string
+                        (string_content)))))))))
         (else_if_clause
           (condition
             (expression
               (value
-                (string)))
+                (string
+                  (string_content))))
             (expression
               (value
-                (string))))
+                (string
+                  (string_content)))))
           (expression
             (if_expression
               (condition
@@ -185,7 +199,8 @@ foo := some_fn("param1", param2)
           (sequence
             (expression
               (value
-                (string)))
+                (string
+                  (string_content))))
             (expression
               (value
                 (identifier)))))))))
@@ -204,7 +219,8 @@ export foo := "abc"
       (identifier)
       (expression
         (value
-          (string))))))
+          (string
+            (string_content)))))))
 
 ================================================================================
 import
@@ -217,9 +233,11 @@ import? 'baz.just'
 
 (source_file
   (import
-    (string))
+    (string
+      (string_content)))
   (import
-    (string)))
+    (string
+      (string_content))))
 
 ================================================================================
 modules
@@ -237,12 +255,14 @@ mod? qux "PATH"
     (identifier))
   (module
     (identifier)
-    (string))
+    (string
+      (string_content)))
   (module
     (identifier))
   (module
     (identifier)
-    (string)))
+    (string
+      (string_content))))
 
 ================================================================================
 set
@@ -266,10 +286,13 @@ set shell := ["powershell.exe", "-c"]
     (identifier))
   (setting
     (identifier)
-    (string))
+    (string
+      (string_content)))
   (setting
-    (string)
-    (string)))
+    (string
+      (string_content))
+    (string
+      (string_content))))
 
 ================================================================================
 comment
@@ -347,16 +370,20 @@ foo_re := if ".JUSTFILE" =~ '(?i)\.?just(?:file)?' { "match" } else { "mismatch"
         (condition
           (expression
             (value
-              (string)))
+              (string
+                (string_content))))
           (regex_literal
-            (string)))
+            (string
+              (string_content))))
         (expression
           (value
-            (string)))
+            (string
+              (string_content))))
         (else_clause
           (expression
             (value
-              (string))))))))
+              (string
+                (string_content)))))))))
 
 ================================================================================
 attribute on alias: Issue #158
@@ -371,6 +398,5 @@ alias o := open
   (alias
     (attribute
       (identifier))
-     (identifier)
-     (identifier)))
-
+    (identifier)
+    (identifier)))

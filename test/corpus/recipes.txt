@@ -227,7 +227,8 @@ baz: foo && (bar "x")
         (parameter
           (identifier)
           (value
-            (string))))
+            (string
+              (string_content)))))
       (dependencies
         (dependency
           (identifier))
@@ -249,7 +250,8 @@ baz: foo && (bar "x")
             (identifier)
             (expression
               (value
-                (string)))))))
+                (string
+                  (string_content))))))))
     (recipe_body
       (recipe_line
         (text)))))
@@ -288,7 +290,8 @@ foo:
   (recipe
     (attribute
       (identifier)
-      (string))
+      (string
+        (string_content)))
     (recipe_header
       (identifier))
     (recipe_body
@@ -309,7 +312,8 @@ fmt:
   (recipe
     (attribute
       (identifier)
-      (string))
+      (string
+        (string_content)))
     (recipe_header
       (identifier))
     (recipe_body
@@ -330,8 +334,10 @@ foo:
   (recipe
     (attribute
       (identifier)
-      (string)
-      (string))
+      (string
+        (string_content))
+      (string
+        (string_content)))
     (recipe_header
       (identifier))
     (recipe_body
@@ -543,7 +549,8 @@ foo:
     (identifier)
     (expression
       (value
-        (string))))
+        (string
+          (string_content)))))
   (recipe
     (recipe_header
       (identifier))
@@ -655,9 +662,11 @@ bar:
   (recipe
     (attribute
       (identifier)
-      (string)
+      (string
+        (string_content))
       (identifier)
-      (string))
+      (string
+        (string_content)))
     (recipe_header
       (identifier))
     (recipe_body
@@ -666,7 +675,8 @@ bar:
   (recipe
     (attribute
       (identifier)
-      (string))
+      (string
+        (string_content)))
     (recipe_header
       (identifier))
     (recipe_body
@@ -692,9 +702,11 @@ bar:
   (recipe
     (attribute
       (identifier)
-      (string)
+      (string
+        (string_content))
       (identifier)
-      (string))
+      (string
+        (string_content)))
     (recipe_header
       (identifier))
     (recipe_body
@@ -703,9 +715,11 @@ bar:
   (recipe
     (attribute
       (identifier)
-      (string)
+      (string
+        (string_content))
       (identifier)
-      (string))
+      (string
+        (string_content)))
     (recipe_header
       (identifier))
     (recipe_body
