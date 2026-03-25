@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.13)
 project(tree-sitter-just
         VERSION "0.2.0"
         DESCRIPTION "Justfiles grammar for tree-sitter"
-        HOMEPAGE_URL "https://github.com/indianboy42/tree-sitter-just"
+        HOMEPAGE_URL "https://github.com/casey/tree-sitter-just"
         LANGUAGES C)
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)

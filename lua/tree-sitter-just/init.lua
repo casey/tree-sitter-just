@@ -28,11 +28,11 @@ function M.setup(arg)
 				"packer",
 				"start",
 				"tree-sitter-just"
-			) or "https://github.com/IndianBoy42/tree-sitter-just", -- local path or git repo
+			) or "https://github.com/casey/tree-sitter-just", -- local path or git repo
 			files = { "src/parser.c", "src/scanner.c" },
 			branch = "main",
 		},
-		maintainers = { "@IndianBoy42" },
+		maintainers = { "casey/tree-sitter-just maintainers" },
 	}
 	local ok, ft = pcall(require, "filetype")
 	if ok then

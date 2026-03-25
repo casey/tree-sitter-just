@@ -37,7 +37,7 @@
       }
     ],
     "links": {
-      "repository": "https://github.com/IndianBoy42/tree-sitter-just"
+      "repository": "https://github.com/casey/tree-sitter-just"
     }
   },
   "bindings": {

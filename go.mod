@@ -1,4 +1,4 @@
-module github.com/indianboy42/tree-sitter-just
+module github.com/casey/tree-sitter-just
 
 go 1.22
 

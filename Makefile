@@ -1,5 +1,5 @@
 LANGUAGE_NAME := tree-sitter-just
-HOMEPAGE_URL := https://github.com/indianboy42/tree-sitter-just
+HOMEPAGE_URL := https://github.com/casey/tree-sitter-just
 VERSION := 0.2.0
 
 # repository

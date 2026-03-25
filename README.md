@@ -23,19 +23,19 @@ justfiles.
 Packer:
 
 ```lua
-use "IndianBoy42/tree-sitter-just"
+use "casey/tree-sitter-just"
 ```
 
 Plug
 
 ```vimscript
-Plug 'IndianBoy42/tree-sitter-just'
+Plug 'casey/tree-sitter-just'
 ```
 
 Manual
 
 ```
-git clone https://github.com/IndianBoy42/tree-sitter-just \
+git clone https://github.com/casey/tree-sitter-just \
   ~/.local/share/nvim/site/pack/tree-sitter-queries/start/tree-sitter-just
 ```
 
@@ -49,12 +49,12 @@ You can also add the parser manually using (This is similar to what is done in
 ```lua
 require("nvim-treesitter.parsers").get_parser_configs().just = {
   install_info = {
-    url = "https://github.com/IndianBoy42/tree-sitter-just", -- local path or git repo
+    url = "https://github.com/casey/tree-sitter-just", -- local path or git repo
     files = { "src/parser.c", "src/scanner.c" },
     branch = "main",
     -- use_makefile = true -- this may be necessary on MacOS (try if you see compiler errors)
   },
-  maintainers = { "@IndianBoy42" },
+  maintainers = { "casey/tree-sitter-just maintainers" },
 }
 ```
 
@@ -75,7 +75,7 @@ name = "just"
 # Use this line to use a local dependency
 source = { path = "/path/toa/tree-sitter-just" }
 # Use this line to use a git dependency
-# source = { git = "https://github.com/IndianBoy42/tree-sitter-just", rev = "7ad370abd9eb80e9e5266ea04a1e77d5b1692321" }
+# source = { git = "https://github.com/casey/tree-sitter-just", rev = "d9da862c156020c1a83d3c6ccdda32be6d8a5d4a" }
 
 [[language]]
 name = "just"
