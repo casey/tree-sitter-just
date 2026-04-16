@@ -168,6 +168,79 @@ foo := if a == "x" {
               (identifier))))))))
 
 ================================================================================
+else if (PATCH)
+================================================================================
+
+foo := if a == "x" {
+  "val"
+} else if "1" != "2" {
+  foo_fn("val")
+} else if "3" == "4" {
+  if some_bool { val }
+} else if other_bool {
+  var
+} else { val }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (if_expression
+        (condition
+          (expression
+            (value
+              (identifier)))
+          (expression
+            (value
+              (string))))
+        (expression
+          (value
+            (string)))
+        (else_if_clause
+          (condition
+            (expression
+              (value
+                (string)))
+            (expression
+              (value
+                (string))))
+          (expression
+            (value
+              (function_call
+                (identifier)
+                (sequence
+                  (expression
+                    (value
+                      (string))))))))
+        (else_if_clause
+          (condition
+            (expression
+              (value
+                (string)))
+            (expression
+              (value
+                (string))))
+          (expression
+            (if_expression
+              (value
+                (identifier))
+              (expression
+                (value
+                  (identifier))))))
+        (else_if_clause
+          (value
+            (identifier))
+          (expression
+            (value
+              (identifier))))
+        (else_clause
+          (expression
+            (value
+              (identifier))))))))
+
+================================================================================
 function
 ================================================================================
 

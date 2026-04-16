@@ -269,6 +269,10 @@
         {
           "type": "condition",
           "named": true
+        },
+        {
+          "type": "value",
+          "named": true
         }
       ]
     }
@@ -327,9 +331,21 @@
     "named": true,
     "fields": {
       "arguments": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "condition",
+            "named": true
+          },
+          {
+            "type": "expression",
+            "named": true
+          },
           {
             "type": "sequence",
             "named": true
@@ -401,6 +417,10 @@
       "types": [
         {
           "type": "condition",
+          "named": true
+        },
+        {
+          "type": "value",
           "named": true
         }
       ]

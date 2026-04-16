@@ -143,7 +143,7 @@ export default grammar({
     // boolean       : ':=' ('true' | 'false')
     boolean: (_) => choice("true", "false"),
 
-    // expression    : 'if' condition '{' expression '}' 'else' '{' expression '}'
+    // expression    : 'if' (condition | value) '{' expression '}' 'else' '{' expression '}'
     //               | value '/' expression
     //               | value '+' expression
     //               | value
@@ -161,16 +161,18 @@ export default grammar({
     // loop at generation, so we just alias it.
     _expression_recurse: ($) => alias($._expression_inner, "expression"),
 
+    // Choice between condition and value since value can be coerced to condition
     if_expression: ($) =>
       seq(
         "if",
-        $.condition,
+        choice($.condition, $.value),
         field("consequence", $._braced_expr),
         repeat(field("alternative", $.else_if_clause)),
         optional(field("alternative", $.else_clause)),
       ),
 
-    else_if_clause: ($) => seq("else", "if", $.condition, $._braced_expr),
+    else_if_clause: ($) =>
+      seq("else", "if", choice($.condition, $.value), $._braced_expr),
 
     else_clause: ($) => seq("else", $._braced_expr),
 
@@ -184,8 +186,6 @@ export default grammar({
         seq($.expression, "==", $.expression),
         seq($.expression, "!=", $.expression),
         seq($.expression, "=~", choice($.regex_literal, $.expression)),
-        // verify whether this is valid
-        $.expression,
       ),
 
     // Capture this special for injections
@@ -213,7 +213,17 @@ export default grammar({
       seq(
         field("name", $.identifier),
         "(",
-        optional(field("arguments", $.sequence)),
+        optional(
+          field(
+            "arguments",
+            choice(
+              // special case `assert(CONDITION, EXPRESSION)`
+              seq($.condition, ",", $.expression),
+              // everything else
+              $.sequence,
+            ),
+          ),
+        ),
         ")",
       ),
 
@@ -223,6 +233,8 @@ export default grammar({
     // sequence      : expression ',' sequence
     //               | expression ','?
     sequence: ($) => comma_sep1($.expression),
+    // sequence: ($) => choice($.condition, comma_sep1($.expression)),
+    // sequence: ($) => comma_sep1(choice($.condition, $.expression)),
 
     // Key=value argument for attributes like [arg("x", pattern='\d+')]
     attribute_kv_argument: ($) =>

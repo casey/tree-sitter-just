@@ -25,7 +25,8 @@ extern "C" {
 }
 
 /// The tree-sitter [`LanguageFn`] for this grammar.
-pub const LANGUAGE: LanguageFn = unsafe { LanguageFn::from_raw(tree_sitter_just) };
+pub const LANGUAGE: LanguageFn =
+    unsafe { LanguageFn::from_raw(tree_sitter_just) };
 
 /// The content of the [`node-types.json`] file for this grammar.
 ///
@@ -34,11 +35,13 @@ pub const NODE_TYPES: &str = include_str!("../../src/node-types.json");
 
 #[cfg(with_highlights_query)]
 /// The syntax highlighting query for this grammar.
-pub const HIGHLIGHTS_QUERY: &str = include_str!("../../queries-src/highlights.scm");
+pub const HIGHLIGHTS_QUERY: &str =
+    include_str!("../../queries-src/highlights.scm");
 
 #[cfg(with_injections_query)]
 /// The language injection query for this grammar.
-pub const INJECTIONS_QUERY: &str = include_str!("../../queries-src/injections.scm");
+pub const INJECTIONS_QUERY: &str =
+    include_str!("../../queries-src/injections.scm");
 
 #[cfg(with_locals_query)]
 /// The local variable query for this grammar.

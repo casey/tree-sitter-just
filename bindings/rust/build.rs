@@ -8,13 +8,21 @@ fn main() {
     c_config.flag("-utf-8");
 
     if std::env::var("TARGET").unwrap() == "wasm32-unknown-unknown" {
-        let Ok(wasm_headers) = std::env::var("DEP_TREE_SITTER_LANGUAGE_WASM_HEADERS") else {
-            panic!("Environment variable DEP_TREE_SITTER_LANGUAGE_WASM_HEADERS must be set by the language crate");
-        };
-        let Ok(wasm_src) =
-            std::env::var("DEP_TREE_SITTER_LANGUAGE_WASM_SRC").map(std::path::PathBuf::from)
+        let Ok(wasm_headers) =
+            std::env::var("DEP_TREE_SITTER_LANGUAGE_WASM_HEADERS")
         else {
-            panic!("Environment variable DEP_TREE_SITTER_LANGUAGE_WASM_SRC must be set by the language crate");
+            panic!(
+                "Environment variable DEP_TREE_SITTER_LANGUAGE_WASM_HEADERS \
+                 must be set by the language crate"
+            );
+        };
+        let Ok(wasm_src) = std::env::var("DEP_TREE_SITTER_LANGUAGE_WASM_SRC")
+            .map(std::path::PathBuf::from)
+        else {
+            panic!(
+                "Environment variable DEP_TREE_SITTER_LANGUAGE_WASM_SRC must \
+                 be set by the language crate"
+            );
         };
 
         c_config.include(&wasm_headers);
@@ -56,7 +64,9 @@ fn main() {
         println!("cargo:rustc-cfg=with_locals_query");
     }
     println!("cargo:rustc-check-cfg=cfg(with_tags_query)");
-    if !"queries/tags.scm".is_empty() && std::path::Path::new("queries/tags.scm").exists() {
+    if !"queries/tags.scm".is_empty()
+        && std::path::Path::new("queries/tags.scm").exists()
+    {
         println!("cargo:rustc-cfg=with_tags_query");
     }
 }

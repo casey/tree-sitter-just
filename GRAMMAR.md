@@ -67,7 +67,7 @@ module        : 'mod' '?'? NAME string?
 
 boolean       : ':=' ('true' | 'false')
 
-expression    : 'if' condition '{' expression '}' 'else' '{' expression '}'
+expression    : 'if' (condition | value) '{' expression '}' 'else' '{' expression '}'
               | value '/' expression
               | value '+' expression
               | value
