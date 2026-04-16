@@ -127,6 +127,7 @@
     "shell"
     "shell-interpreter"
     "tempdir"
+    "unstable"
     "windows-powershell"
     "windows-shell"
     "working-directory"))
@@ -135,9 +136,11 @@
 (attribute
   (identifier) @attribute
   (#any-of? @attribute
+    "arg"
     "confirm"
     "doc"
     "extension"
+    "freebsd"
     "group"
     "linux"
     "macos"
