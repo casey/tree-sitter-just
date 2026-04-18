@@ -108,8 +108,8 @@ foo := if a == "x" {
   "val"
 } else if "1" != "2" {
   foo_fn("val")
-} else if "3" == "4" {
-  if some_bool { val }
+} else if "3" =~ "4" {
+  if os() != "windows" { val } else { "alt" }
 } else { val }
 
 --------------------------------------------------------------------------------
@@ -150,18 +150,25 @@ foo := if a == "x" {
             (expression
               (value
                 (string)))
-            (expression
-              (value
-                (string))))
+            (regex_literal
+              (string)))
           (expression
             (if_expression
               (condition
                 (expression
                   (value
-                    (identifier))))
+                    (function_call
+                      (identifier))))
+                (expression
+                  (value
+                    (string))))
               (expression
                 (value
-                  (identifier))))))
+                  (identifier)))
+              (else_clause
+                (expression
+                  (value
+                    (string)))))))
         (else_clause
           (expression
             (value
@@ -189,6 +196,37 @@ foo := some_fn("param1", param2)
             (expression
               (value
                 (identifier)))))))))
+
+================================================================================
+user-defined function
+================================================================================
+
+my_func(a, b) := if a != b { a } else { b }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function
+    (identifier)
+    (function_parameters
+      (identifier)
+      (identifier))
+    (expression
+      (if_expression
+        (condition
+          (expression
+            (value
+              (identifier)))
+          (expression
+            (value
+              (identifier))))
+        (expression
+          (value
+            (identifier)))
+        (else_clause
+          (expression
+            (value
+              (identifier))))))))
 
 ================================================================================
 export
@@ -248,28 +286,23 @@ mod? qux "PATH"
 set
 ================================================================================
 
-set SOME_BOOL
-set FOO := true
-set dotenv-load
+set quiet
+set unstable := true
 set tempdir := "/tmp/just"
 set shell := ["powershell.exe", "-c"]
 
 --------------------------------------------------------------------------------
 
 (source_file
+  (setting)
   (setting
-    (identifier))
-  (setting
-    (identifier)
     (boolean))
   (setting
-    (identifier))
-  (setting
-    (identifier)
     (string))
   (setting
-    (string)
-    (string)))
+    (string_list
+      (string)
+      (string))))
 
 ================================================================================
 comment
@@ -369,8 +402,10 @@ alias o := open
 
 (source_file
   (alias
-    (attribute
-      (identifier))
+    (attributes
+      (attribute
+        (identifier)))
      (identifier)
-     (identifier)))
+     (target
+       (identifier))))
 

@@ -62,10 +62,6 @@ foo:
   # this line will be run as `zsh -cu 'ls **/*.txt'`
   ls **/*.txt
 
-set NAME
-
-set NAME := true
-
 set export
 
 a := "hello"
@@ -170,9 +166,9 @@ system-info:
     @echo "This is an {{arch()}} machine".
 
 # - `env_var(key)` – Retrieves the environment variable with name `key`, aborting if it is not present.
-# 
+#
 # - `env_var_or_default(key, default)` – Retrieves the environment variable with name `key`, returning `default` if it is not present.
-# 
+#
 # - `invocation_directory()` - Retrieves the path of the current working directory, before `just` changed it (chdir'd) prior to executing commands.
 
 rustfmt:

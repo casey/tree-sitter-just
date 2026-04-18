@@ -2,7 +2,7 @@
 trailing whitespace
 ================================================================================
 
-a: # 
+a: #
 --------------------------------------------------------------------------------
 
 (source_file
@@ -70,9 +70,11 @@ baz: foo \
       (identifier)
       (dependencies
         (dependency
-          (identifier))
+          (target
+            (identifier)))
         (dependency
-          (identifier))))
+          (target
+            (identifier)))))
     (recipe_body
       (recipe_line
         (text)
