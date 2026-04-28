@@ -27,16 +27,16 @@
 ; References
 
 (alias
-  right: (identifier) @local.reference)
+  right: (target) @local.reference)
 
 (function_call
   name: (identifier) @local.reference)
 
 (dependency
-  name: (identifier) @local.reference)
+  name: (target) @local.reference)
 
 (dependency_expression
-  name: (identifier) @local.reference)
+  name: (target) @local.reference)
 
 (value
   (identifier) @local.reference)

@@ -18,7 +18,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "target",
             "named": true
           }
         ]
@@ -29,10 +29,36 @@
       "required": false,
       "types": [
         {
-          "type": "attribute",
+          "type": "attributes",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "assert",
+    "named": true,
+    "fields": {
+      "check": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "condition",
+            "named": true
+          }
+        ]
+      },
+      "message": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -89,7 +115,7 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
@@ -123,6 +149,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "attributes",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -188,7 +229,7 @@
         "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "target",
             "named": true
           }
         ]
@@ -214,7 +255,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "target",
             "named": true
           }
         ]
@@ -297,6 +338,10 @@
       "required": false,
       "types": [
         {
+          "type": "assert",
+          "named": true
+        },
+        {
           "type": "if_expression",
           "named": true
         },
@@ -320,6 +365,42 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "function",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "function_parameters",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -349,12 +430,27 @@
     }
   },
   {
+    "type": "function_parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "if_expression",
     "named": true,
     "fields": {
       "alternative": {
         "multiple": true,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "else_clause",
@@ -412,7 +508,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "string",
@@ -501,7 +597,7 @@
           "named": true
         },
         {
-          "type": "variadic_parameter",
+          "type": "variadic",
           "named": true
         }
       ]
@@ -516,7 +612,7 @@
       "required": true,
       "types": [
         {
-          "type": "attribute",
+          "type": "attributes",
           "named": true
         },
         {
@@ -648,76 +744,98 @@
     "type": "setting",
     "named": true,
     "fields": {
-      "array": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "[",
-            "named": false
-          },
-          {
-            "type": "]",
-            "named": false
-          }
-        ]
-      },
-      "content": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "string",
-            "named": true
-          }
-        ]
-      },
-      "element": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "string",
-            "named": true
-          }
-        ]
-      },
       "left": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
-            "type": "identifier",
-            "named": true
+            "type": "allow-duplicate-recipes",
+            "named": false
+          },
+          {
+            "type": "allow-duplicate-variables",
+            "named": false
+          },
+          {
+            "type": "dotenv-filename",
+            "named": false
+          },
+          {
+            "type": "dotenv-load",
+            "named": false
+          },
+          {
+            "type": "dotenv-path",
+            "named": false
+          },
+          {
+            "type": "dotenv-required",
+            "named": false
+          },
+          {
+            "type": "export",
+            "named": false
+          },
+          {
+            "type": "fallback",
+            "named": false
+          },
+          {
+            "type": "ignore-comments",
+            "named": false
+          },
+          {
+            "type": "positional-arguments",
+            "named": false
+          },
+          {
+            "type": "quiet",
+            "named": false
+          },
+          {
+            "type": "script-interpreter",
+            "named": false
+          },
+          {
+            "type": "shell",
+            "named": false
+          },
+          {
+            "type": "tempdir",
+            "named": false
+          },
+          {
+            "type": "unstable",
+            "named": false
+          },
+          {
+            "type": "windows-powershell",
+            "named": false
+          },
+          {
+            "type": "windows-shell",
+            "named": false
+          },
+          {
+            "type": "working-directory",
+            "named": false
           }
         ]
       },
       "right": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": ":=",
-            "named": false
-          },
-          {
-            "type": "[",
-            "named": false
-          },
-          {
-            "type": "]",
-            "named": false
-          },
           {
             "type": "boolean",
             "named": true
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "string_list",
             "named": true
           }
         ]
@@ -761,6 +879,10 @@
           "named": true
         },
         {
+          "type": "function",
+          "named": true
+        },
+        {
           "type": "import",
           "named": true
         },
@@ -793,6 +915,36 @@
       "types": [
         {
           "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "target",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -834,7 +986,7 @@
     }
   },
   {
-    "type": "variadic_parameter",
+    "type": "variadic",
     "named": true,
     "fields": {
       "kleene": {
@@ -924,6 +1076,10 @@
     "named": false
   },
   {
+    "type": "::",
+    "named": false
+  },
+  {
     "type": ":=",
     "named": false
   },
@@ -972,9 +1128,37 @@
     "named": false
   },
   {
+    "type": "allow-duplicate-recipes",
+    "named": false
+  },
+  {
+    "type": "allow-duplicate-variables",
+    "named": false
+  },
+  {
+    "type": "assert",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true
+  },
+  {
+    "type": "dotenv-filename",
+    "named": false
+  },
+  {
+    "type": "dotenv-load",
+    "named": false
+  },
+  {
+    "type": "dotenv-path",
+    "named": false
+  },
+  {
+    "type": "dotenv-required",
+    "named": false
   },
   {
     "type": "else",
@@ -993,6 +1177,10 @@
     "named": false
   },
   {
+    "type": "fallback",
+    "named": false
+  },
+  {
     "type": "false",
     "named": false
   },
@@ -1002,6 +1190,10 @@
   },
   {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "ignore-comments",
     "named": false
   },
   {
@@ -1021,11 +1213,27 @@
     "named": true
   },
   {
+    "type": "positional-arguments",
+    "named": false
+  },
+  {
+    "type": "quiet",
+    "named": false
+  },
+  {
+    "type": "script-interpreter",
+    "named": false
+  },
+  {
     "type": "set",
     "named": false
   },
   {
     "type": "shell",
+    "named": false
+  },
+  {
+    "type": "tempdir",
     "named": false
   },
   {
@@ -1037,11 +1245,31 @@
     "named": false
   },
   {
+    "type": "unstable",
+    "named": false
+  },
+  {
+    "type": "windows-powershell",
+    "named": false
+  },
+  {
+    "type": "windows-shell",
+    "named": false
+  },
+  {
+    "type": "working-directory",
+    "named": false
+  },
+  {
     "type": "{",
     "named": false
   },
   {
     "type": "{{",
+    "named": false
+  },
+  {
+    "type": "||",
     "named": false
   },
   {

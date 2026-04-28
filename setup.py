@@ -73,5 +73,5 @@ setup(
         "bdist_wheel": BdistWheel,
         "egg_info": EggInfo,
     },
-    zip_safe=False
+    zip_safe=False,
 )

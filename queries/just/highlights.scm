@@ -37,13 +37,15 @@
   name: (identifier) @function)
 
 (dependency
-  name: (identifier) @function.call)
+  name: (target) @function.call)
 
 (dependency_expression
-  name: (identifier) @function.call)
+  name: (target) @function.call)
 
 (function_call
   name: (identifier) @function.call)
+
+(assert) @function.call
 
 ; Parameters
 
@@ -69,6 +71,7 @@
   "*"
   "+"
   "&&"
+  "||"
   "@-"
   "-@"
   "-"
@@ -112,8 +115,7 @@
 
 ; highlight known settings (filtering does not always work)
 (setting
-  left: (identifier) @keyword
-  (#any-of? @keyword
+  left: [
     "allow-duplicate-recipes"
     "allow-duplicate-variables"
     "dotenv-filename"
@@ -124,20 +126,25 @@
     "fallback"
     "ignore-comments"
     "positional-arguments"
+    "script-interpreter"
+    "quiet"
     "shell"
-    "shell-interpreter"
     "tempdir"
+    "unstable"
     "windows-powershell"
     "windows-shell"
-    "working-directory"))
+    "working-directory"
+  ] @keyword)
 
 ; highlight known attributes (filtering does not always work)
 (attribute
   (identifier) @attribute
   (#any-of? @attribute
+    "arg"
     "confirm"
     "doc"
     "extension"
+    "freebsd"
     "group"
     "linux"
     "macos"

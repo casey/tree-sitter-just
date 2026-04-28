@@ -13,6 +13,6 @@
 
 (function_call
   arguments: (sequence
-    (expression) @parameter.inside) @parameter.around) @function.around
+    (expression)+ @parameter.inside) @parameter.around) @function.around
 
 (comment) @comment.around
