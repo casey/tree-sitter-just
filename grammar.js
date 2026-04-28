@@ -437,10 +437,10 @@ export default grammar({
     // string_list   : '[' string (',' string)* ','? ']'
     string_list: ($) => seq("[", comma_sep1($.string), optional(","), "]"),
 
-    // string        : 'x'? STRING
-    //               | 'x'? INDENTED_STRING
-    //               | 'x'? RAW_STRING
-    //               | 'x'? INDENTED_RAW_STRING
+    // string        : ('x' | 'f')? STRING
+    //               | ('x' | 'f')? INDENTED_STRING
+    //               | ('x' | 'f')? RAW_STRING
+    //               | ('x' | 'f')? INDENTED_RAW_STRING
     string: ($) =>
       choice(
         $._string_indented,
