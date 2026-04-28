@@ -36,6 +36,32 @@
     }
   },
   {
+    "type": "assert",
+    "named": true,
+    "fields": {
+      "check": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "condition",
+            "named": true
+          }
+        ]
+      },
+      "message": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "assignment",
     "named": true,
     "fields": {
@@ -312,7 +338,7 @@
       "required": false,
       "types": [
         {
-          "type": "condition",
+          "type": "assert",
           "named": true
         },
         {

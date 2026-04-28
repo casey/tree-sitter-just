@@ -232,11 +232,21 @@ export default grammar({
     _conjunct: ($) =>
       choice(
         $.if_expression,
-        seq("assert", "(", $.condition, ",", $._expression_recurse, ")"),
+        $.assert,
         seq("/", $._expression_recurse),
         prec.left(1, seq($.value, "/", $._expression_recurse)),
         prec.left(2, seq($.value, "+", $._expression_recurse)),
         $.value,
+      ),
+
+    assert: ($) =>
+      seq(
+        "assert",
+        "(",
+        field("check", $.condition),
+        ",",
+        field("message", $.expression),
+        ")",
       ),
 
     _expression_inner: ($) =>

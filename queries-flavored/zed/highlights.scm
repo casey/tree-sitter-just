@@ -45,6 +45,8 @@
 (function_call
   name: (identifier) @function)
 
+(assert) @function
+
 ; Parameters
 
 (parameter
