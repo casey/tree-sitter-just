@@ -89,10 +89,10 @@ export default grammar({
         ":=",
         field("right", $.identifier),
       ),
-    // assignment    : 'export'? NAME ':=' expression _eol
+    // assignment    : ('export' | 'eager')? NAME ':=' expression _eol
     assignment: ($) =>
       seq(
-        field("modifier", optional("export")),
+        field("modifier", optional(choice("export", "eager"))),
         field("left", $.identifier),
         ":=",
         field("right", $.expression),

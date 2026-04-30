@@ -51,7 +51,7 @@ eol           : NEWLINE
 
 alias         : 'alias' NAME ':=' NAME
 
-assignment    : 'export'? NAME ':=' expression eol
+assignment    : ('export' | 'eager')? NAME ':=' expression eol
 
 setting       : 'set' 'dotenv-load' boolean?
               | 'set' 'export' boolean?

@@ -54,6 +54,10 @@
         "required": false,
         "types": [
           {
+            "type": "eager",
+            "named": false
+          },
+          {
             "type": "export",
             "named": false
           }
@@ -966,6 +970,10 @@
     "type": "comment",
     "named": true,
     "extra": true
+  },
+  {
+    "type": "eager",
+    "named": false
   },
   {
     "type": "else",
