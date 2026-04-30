@@ -74,22 +74,13 @@ export default grammar({
     // item          : recipe
     //               | alias
     //               | assignment
-    //               | export
     //               | import
     //               | module
     //               | setting
     _item: ($) =>
-      choice(
-        $.recipe,
-        $.alias,
-        $.assignment,
-        $.export,
-        $.import,
-        $.module,
-        $.setting,
-      ),
+      choice($.recipe, $.alias, $.assignment, $.import, $.module, $.setting),
 
-    // alias         : 'alias' NAME ':=' NAME
+    // alias         : attributes* 'alias' NAME ':=' NAME
     alias: ($) =>
       seq(
         repeat($.attribute),
@@ -98,17 +89,16 @@ export default grammar({
         ":=",
         field("right", $.identifier),
       ),
-    // assignment    : NAME ':=' expression _eol
+    // assignment    : attributes* ('export' | 'eager')? NAME ':=' expression _eol
     assignment: ($) =>
       seq(
+        repeat($.attribute),
+        field("modifier", optional(choice("export", "eager"))),
         field("left", $.identifier),
         ":=",
         field("right", $.expression),
         $._newline,
       ),
-
-    // export        : 'export' assignment
-    export: ($) => seq("export", $.assignment),
 
     // import        : 'import' '?'? string?
     import: ($) => seq("import", optional("?"), $.string),
@@ -253,7 +243,7 @@ export default grammar({
       ),
 
     // A complete recipe
-    // recipe        : attribute? '@'? NAME parameter* variadic_parameters? ':' dependency* body?
+    // recipe        : attribute* '@'? NAME parameter* variadic_parameters? ':' dependency* body?
     recipe: ($) =>
       seq(
         repeat($.attribute),

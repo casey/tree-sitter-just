@@ -41,7 +41,6 @@ justfile      : item* EOF
 item          : recipe
               | alias
               | assignment
-              | export
               | import
               | module
               | setting
@@ -52,9 +51,7 @@ eol           : NEWLINE
 
 alias         : 'alias' NAME ':=' NAME
 
-assignment    : NAME ':=' expression eol
-
-export        : 'export' assignment
+assignment    : ('export' | 'eager')? NAME ':=' expression eol
 
 setting       : 'set' 'dotenv-load' boolean?
               | 'set' 'export' boolean?
@@ -91,7 +88,7 @@ string        : STRING
 sequence      : expression ',' sequence
               | expression ','?
 
-recipe        : attribute? '@'? NAME parameter* variadic? ':' dependency* body?
+recipe        : attribute* '@'? NAME parameter* variadic? ':' dependency* body?
 
 attribute     : '[' NAME ']' eol
 
