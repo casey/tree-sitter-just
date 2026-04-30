@@ -41,7 +41,6 @@ justfile      : item* EOF
 item          : recipe
               | alias
               | assignment
-              | export
               | import
               | module
               | setting
@@ -52,9 +51,7 @@ eol           : NEWLINE
 
 alias         : 'alias' NAME ':=' NAME
 
-assignment    : NAME ':=' expression eol
-
-export        : 'export' assignment
+assignment    : 'export'? NAME ':=' expression eol
 
 setting       : 'set' 'dotenv-load' boolean?
               | 'set' 'export' boolean?

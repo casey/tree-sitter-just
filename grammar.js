@@ -74,20 +74,11 @@ export default grammar({
     // item          : recipe
     //               | alias
     //               | assignment
-    //               | export
     //               | import
     //               | module
     //               | setting
     _item: ($) =>
-      choice(
-        $.recipe,
-        $.alias,
-        $.assignment,
-        $.export,
-        $.import,
-        $.module,
-        $.setting,
-      ),
+      choice($.recipe, $.alias, $.assignment, $.import, $.module, $.setting),
 
     // alias         : 'alias' NAME ':=' NAME
     alias: ($) =>
@@ -98,17 +89,15 @@ export default grammar({
         ":=",
         field("right", $.identifier),
       ),
-    // assignment    : NAME ':=' expression _eol
+    // assignment    : 'export'? NAME ':=' expression _eol
     assignment: ($) =>
       seq(
+        field("modifier", optional("export")),
         field("left", $.identifier),
         ":=",
         field("right", $.expression),
         $._newline,
       ),
-
-    // export        : 'export' assignment
-    export: ($) => seq("export", $.assignment),
 
     // import        : 'import' '?'? string?
     import: ($) => seq("import", optional("?"), $.string),

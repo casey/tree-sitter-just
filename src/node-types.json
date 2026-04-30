@@ -49,6 +49,16 @@
           }
         ]
       },
+      "modifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "export",
+            "named": false
+          }
+        ]
+      },
       "right": {
         "multiple": false,
         "required": true,
@@ -268,21 +278,6 @@
       "types": [
         {
           "type": "condition",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "export",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "assignment",
           "named": true
         }
       ]
@@ -754,10 +749,6 @@
         },
         {
           "type": "assignment",
-          "named": true
-        },
-        {
-          "type": "export",
           "named": true
         },
         {

@@ -199,12 +199,11 @@ export foo := "abc"
 --------------------------------------------------------------------------------
 
 (source_file
-  (export
-    (assignment
-      (identifier)
-      (expression
-        (value
-          (string))))))
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (string)))))
 
 ================================================================================
 import
@@ -371,6 +370,5 @@ alias o := open
   (alias
     (attribute
       (identifier))
-     (identifier)
-     (identifier)))
-
+    (identifier)
+    (identifier)))

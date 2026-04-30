@@ -53,10 +53,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "export"
-        },
-        {
-          "type": "SYMBOL",
           "name": "import"
         },
         {
@@ -110,6 +106,22 @@
       "members": [
         {
           "type": "FIELD",
+          "name": "modifier",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "export"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
           "name": "left",
           "content": {
             "type": "SYMBOL",
@@ -131,19 +143,6 @@
         {
           "type": "SYMBOL",
           "name": "_newline"
-        }
-      ]
-    },
-    "export": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "export"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "assignment"
         }
       ]
     },
