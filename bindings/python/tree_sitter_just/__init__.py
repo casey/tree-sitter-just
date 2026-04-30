@@ -37,7 +37,18 @@ __all__ = [
 
 
 def __dir__():
-    return sorted(__all__ + [
-        "__all__", "__builtins__", "__cached__", "__doc__", "__file__",
-        "__loader__", "__name__", "__package__", "__path__", "__spec__",
-    ])
+    return sorted(
+        __all__
+        + [
+            "__all__",
+            "__builtins__",
+            "__cached__",
+            "__doc__",
+            "__file__",
+            "__loader__",
+            "__name__",
+            "__package__",
+            "__path__",
+            "__spec__",
+        ]
+    )
