@@ -80,7 +80,7 @@ export default grammar({
     _item: ($) =>
       choice($.recipe, $.alias, $.assignment, $.import, $.module, $.setting),
 
-    // alias         : 'alias' NAME ':=' NAME
+    // alias         : attributes* 'alias' NAME ':=' NAME
     alias: ($) =>
       seq(
         repeat($.attribute),
@@ -242,7 +242,7 @@ export default grammar({
       ),
 
     // A complete recipe
-    // recipe        : attribute? '@'? NAME parameter* variadic_parameters? ':' dependency* body?
+    // recipe        : attribute* '@'? NAME parameter* variadic_parameters? ':' dependency* body?
     recipe: ($) =>
       seq(
         repeat($.attribute),

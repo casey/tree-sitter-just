@@ -88,7 +88,7 @@ string        : STRING
 sequence      : expression ',' sequence
               | expression ','?
 
-recipe        : attribute? '@'? NAME parameter* variadic? ':' dependency* body?
+recipe        : attribute* '@'? NAME parameter* variadic? ':' dependency* body?
 
 attribute     : '[' NAME ']' eol
 
