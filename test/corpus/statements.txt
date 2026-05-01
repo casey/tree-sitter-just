@@ -409,3 +409,169 @@ alias o := open
      (target
        (identifier))))
 
+================================================================================
+assert statement
+================================================================================
+
+_no_windows := assert(os() != "windows", "windows not supported")
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (assert
+        (condition
+          (expression
+            (value
+              (function_call
+                (identifier))))
+          (expression
+            (value
+              (string))))
+        (expression
+          (value
+            (string)))))))
+
+================================================================================
+logical AND expression
+================================================================================
+
+config_dir := x'{{$XDG_CONFIG_HOME}}' && x"/home/{{$USER}}/.config"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (string))
+      (value
+        (string)))))
+
+================================================================================
+logical AND with conjunct expression
+================================================================================
+
+config_dir := x'{{$XDG_CONFIG_HOME}}' && if os() == 'windows' {
+    "some dir"
+  } else {
+    error('''can't find config''')
+  }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (string))
+      (if_expression
+        (condition
+          (expression
+            (value
+              (function_call
+                (identifier))))
+          (expression
+            (value
+              (string))))
+        (expression
+          (value
+            (string)))
+        (else_clause
+          (expression
+            (value
+              (function_call
+                (identifier)
+                (sequence
+                  (expression
+                    (value
+                      (string))))))))))))
+
+================================================================================
+logical OR expression
+================================================================================
+
+prefix := env('PREFIX_DIR', '') || / 'usr' / 'local'
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (function_call
+          (identifier)
+          (sequence
+            (expression
+              (value
+                (string)))
+            (expression
+              (value
+                (string))))))
+      (value
+        (string))
+      (value
+        (string)))))
+
+================================================================================
+logical OR with AND expression
+================================================================================
+
+bar := env('PREFIX_DIR', '') || 'uses /usr/local' && / 'usr' / 'local'
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (function_call
+          (identifier)
+          (sequence
+            (expression
+              (value
+                (string)))
+            (expression
+              (value
+                (string))))))
+      (value
+        (string))
+      (value
+        (string))
+      (value
+        (string)))))
+
+================================================================================
+logical AND with OR expression
+================================================================================
+
+bar := env('PREFIX_DIR', '') && 'uses /usr/local' || / 'usr' / 'local'
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (function_call
+          (identifier)
+          (sequence
+            (expression
+              (value
+                (string)))
+            (expression
+              (value
+                (string))))))
+      (value
+        (string))
+      (value
+        (string))
+      (value
+        (string)))))

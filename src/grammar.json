@@ -1032,8 +1032,11 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "SYMBOL",
-                    "name": "_AND"
+                    "type": "TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "&&"
+                    }
                   },
                   {
                     "type": "SYMBOL",
@@ -1175,8 +1178,11 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "SYMBOL",
-                    "name": "_OR"
+                    "type": "TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "||"
+                    }
                   },
                   {
                     "type": "SYMBOL",
@@ -1887,8 +1893,11 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "STRING",
-                "value": "&&"
+                "type": "TOKEN",
+                "content": {
+                  "type": "STRING",
+                  "value": "&&"
+                }
               },
               {
                 "type": "BLANK"
@@ -2048,14 +2057,6 @@
       "members": [
         {
           "type": "STRING",
-          "value": "@-"
-        },
-        {
-          "type": "STRING",
-          "value": "-@"
-        },
-        {
-          "type": "STRING",
           "value": "@"
         },
         {
@@ -2065,6 +2066,54 @@
         {
           "type": "STRING",
           "value": "?"
+        },
+        {
+          "type": "STRING",
+          "value": "@-"
+        },
+        {
+          "type": "STRING",
+          "value": "@?"
+        },
+        {
+          "type": "STRING",
+          "value": "-@"
+        },
+        {
+          "type": "STRING",
+          "value": "-?"
+        },
+        {
+          "type": "STRING",
+          "value": "?@"
+        },
+        {
+          "type": "STRING",
+          "value": "?-"
+        },
+        {
+          "type": "STRING",
+          "value": "@-?"
+        },
+        {
+          "type": "STRING",
+          "value": "@?-"
+        },
+        {
+          "type": "STRING",
+          "value": "-@?"
+        },
+        {
+          "type": "STRING",
+          "value": "-?@"
+        },
+        {
+          "type": "STRING",
+          "value": "?@-"
+        },
+        {
+          "type": "STRING",
+          "value": "?-@"
         }
       ]
     },
@@ -2400,20 +2449,6 @@
           "value": "#.*"
         }
       }
-    },
-    "_OR": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "||"
-      }
-    },
-    "_AND": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "&&"
-      }
     }
   },
   "extras": [
@@ -2458,9 +2493,7 @@
     "_string",
     "_string_indented",
     "_raw_string_indented",
-    "_expression_recurse",
-    "_AND",
-    "_OR"
+    "_expression_recurse"
   ],
   "supertypes": [],
   "reserved": {}

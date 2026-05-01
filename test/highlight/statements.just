@@ -199,6 +199,37 @@ foo_cmt := bar # + baz
 # <- variable
 #              ^ comment.line
 
+foo_and := '' && 'goodbye'
+# <- variable
+#          ^^ string
+#             ^^ operator
+#                ^^^^^^^^^ string
+
+foo_or := '' || 'goodbye'
+# <- variable
+#         ^^ string
+#            ^^ operator
+#               ^^^^^^^^^ string
+
+_no_win := assert(os() != 'windows', 'unlucky')
+# <- variable
+#          ^^^^^^ function.call
+#                ^ punctuation.bracket
+#                 ^^ function.call
+#                   ^^ punctuation.bracket
+#                      ^^ operator
+#                         ^^^^^^^^^ string
+#                                    ^^^^^^^^^ string
+#                                             ^ punctuation.bracket
+
+my_name := x'{{$USER}}'
+# <- variable
+#          ^^^^^^^^^^^^ string
+
+greet := f'Hello {{my_name}}!'
+# <- variable
+#        ^^^^^^^^^^^^^^^^^^^^^ string
+
 # FIXME: the RHS string should parse as an injection, if we ever have a way to test that
 foo_re := if ".JUSTFILE" =~ '(?i)\.?just(?:file)?' { "match" } else { "mismatch" }
 # <- variable

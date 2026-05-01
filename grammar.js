@@ -83,8 +83,6 @@ export default grammar({
     $._string_indented,
     $._raw_string_indented,
     $._expression_recurse,
-    $._AND,
-    $._OR,
   ],
   word: ($) => $.identifier,
 
@@ -221,7 +219,9 @@ export default grammar({
     // disjunct      : conjunct && disjunct
     //               | conjunct
     _disjunct: ($) =>
-      prec.left(seq($._conjunct, optional(seq($._AND, $._expression_recurse)))),
+      prec.left(
+        seq($._conjunct, optional(seq(LOGICAL_AND, $._expression_recurse))),
+      ),
 
     // conjunct      : 'if' condition '{' expression '}' 'else' '{' expression '}'
     //               | 'assert' '(' condition ',' expression ')'
@@ -250,7 +250,9 @@ export default grammar({
       ),
 
     _expression_inner: ($) =>
-      prec.left(seq($._disjunct, optional(seq($._OR, $._expression_recurse)))),
+      prec.left(
+        seq($._disjunct, optional(seq(LOGICAL_OR, $._expression_recurse))),
+      ),
 
     // We can't mark `_expression_inner` inline because it causes an infinite
     // loop at generation, so we just alias it.
@@ -276,9 +278,6 @@ export default grammar({
     //               | expression '=~' expression
     condition: ($) =>
       choice(
-        // Future?
-        // seq($.expression, $._OR, $.expression),
-        // seq($.expression, $._AND, $.expression),
         seq($.expression, "==", $.expression),
         seq($.expression, "!=", $.expression),
         seq($.expression, "=~", choice($.regex_literal, $.expression)),
@@ -390,7 +389,7 @@ export default grammar({
     variadic: ($) => seq(field("kleene", choice("*", "+")), $.parameter),
 
     // dependencies  : dependency* ('&&' dependency+)?
-    dependencies: ($) => repeat1(seq(optional("&&"), $.dependency)),
+    dependencies: ($) => repeat1(seq(optional(LOGICAL_AND), $.dependency)),
 
     // dependency    : target
     //               | '(' target expression* ')'
@@ -416,7 +415,27 @@ export default grammar({
         repeat1(choice($.text, $.interpolation)),
       ),
 
-    recipe_line_prefix: (_) => choice("@-", "-@", "@", "-", "?"),
+    // All of the options for the '@', '?', '-' sigils.
+    // Using a regex constant token doesn't allow the @operator query in
+    // highlights.scm to match on them, hence the use of `choice(...)`.
+    recipe_line_prefix: (_) =>
+      choice(
+        "@",
+        "-",
+        "?",
+        "@-",
+        "@?",
+        "-@",
+        "-?",
+        "?@",
+        "?-",
+        "@-?",
+        "@?-",
+        "-@?",
+        "-?@",
+        "?@-",
+        "?-@",
+      ),
 
     // Any shebang. Needs a named field to apply injection queries correctly.
     shebang: ($) =>
@@ -480,11 +499,5 @@ export default grammar({
 
     // `# ...` comment
     comment: (_) => token(prec(-1, /#.*/)),
-
-    // logical OR operator
-    _OR: (_) => LOGICAL_OR,
-
-    // logical AND operator
-    _AND: (_) => LOGICAL_AND,
   },
 });

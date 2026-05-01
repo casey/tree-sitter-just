@@ -939,3 +939,182 @@ import:
     (recipe_body
       (recipe_line
         (text)))))
+
+================================================================================
+external module dependency
+================================================================================
+
+build: pre_build::check
+	body
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (recipe_header
+      (identifier)
+      (dependencies
+        (dependency
+          (target
+            (identifier)
+            (identifier)))))
+    (recipe_body
+      (recipe_line
+        (text)))))
+
+================================================================================
+external module dependency with args
+================================================================================
+
+build type="debug": (pre_build::check type)
+	body
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier)
+          (value
+            (string))))
+      (dependencies
+        (dependency
+          (dependency_expression
+            (target
+              (identifier)
+              (identifier))
+            (expression
+              (value
+                (identifier)))))))
+    (recipe_body
+      (recipe_line
+        (text)))))
+
+================================================================================
+dependencies with external module dependency
+================================================================================
+
+build: dirs pre_build::check lint
+	body
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (recipe_header
+      (identifier)
+      (dependencies
+        (dependency
+          (target
+            (identifier)))
+        (dependency
+          (target
+            (identifier)
+            (identifier)))
+        (dependency
+          (target
+            (identifier)))))
+    (recipe_body
+      (recipe_line
+        (text)))))
+
+================================================================================
+'-' sigil
+================================================================================
+
+carry_on:
+	-body
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (recipe_header
+      (identifier))
+    (recipe_body
+      (recipe_line
+        (recipe_line_prefix)
+        (text)))))
+
+================================================================================
+'?' sigil
+================================================================================
+
+fail_fast:
+	?[ -f baz ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (recipe_header
+      (identifier))
+    (recipe_body
+      (recipe_line
+        (recipe_line_prefix)
+        (text)))))
+
+================================================================================
+sigil combinations
+================================================================================
+
+sigils_to_the_moon:
+        @-body
+        @?body
+        -@body
+        -?body
+        ?@body
+        ?-body
+        @-?body
+        @?-body
+        -@?body
+        -?@body
+        ?@-body
+        ?-@body
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (recipe_header
+      (identifier))
+    (recipe_body
+      (recipe_line
+        (recipe_line_prefix)
+        (text))
+      (recipe_line
+        (recipe_line_prefix)
+        (text))
+      (recipe_line
+        (recipe_line_prefix)
+        (text))
+      (recipe_line
+        (recipe_line_prefix)
+        (text))
+      (recipe_line
+        (recipe_line_prefix)
+        (text))
+      (recipe_line
+        (recipe_line_prefix)
+        (text))
+      (recipe_line
+        (recipe_line_prefix)
+        (text))
+      (recipe_line
+        (recipe_line_prefix)
+        (text))
+      (recipe_line
+        (recipe_line_prefix)
+        (text))
+      (recipe_line
+        (recipe_line_prefix)
+        (text))
+      (recipe_line
+        (recipe_line_prefix)
+        (text))
+      (recipe_line
+        (recipe_line_prefix)
+        (text)))))

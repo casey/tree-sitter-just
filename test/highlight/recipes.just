@@ -74,6 +74,21 @@ fred: garply && (waldo "x")
 #                      ^^^ string
 #                         ^ punctuation.bracket
 
+mod extern 'multiline.just'
+
+multi: extern::call_me
+# <- function
+#      ^^^^^^^^^^^^^^^ function.call
+
+multi_params name: (extern::hello name)
+# <- function
+#            ^^^^ variable.parameter
+#                  ^ punctuation.bracket
+#                   ^^^^^^^^^^^^^ function.call
+#                                 ^^^^ variable
+#                                     ^ punctuation.bracket
+
+
 # plugh
 plugh:
   echo "plugh"
