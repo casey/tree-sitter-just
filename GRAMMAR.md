@@ -70,11 +70,16 @@ setting       : 'allow-duplicate-recipes' boolean?
               | 'allow-duplicate-variables' boolean?
               | 'dotenv-filename' ':=' string
               | 'dotenv-load' boolean?
+              | 'dotenv-override' ':=' boolean?
               | 'dotenv-path' ':=' string
               | 'dotenv-required' boolean?
               | 'export' boolean?
               | 'fallback' boolean?
+              | 'guards' boolean?
               | 'ignore-comments' boolean?
+              | 'lazy' boolean?
+              | 'no-cd' boolean?
+              | 'no-exit-message' boolean?
               | 'positional-arguments' boolean?
               | 'script-interpreter' ':=' string_list
               | 'quiet' boolean?

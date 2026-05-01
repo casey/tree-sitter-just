@@ -765,6 +765,10 @@
             "named": false
           },
           {
+            "type": "dotenv-override",
+            "named": false
+          },
+          {
             "type": "dotenv-path",
             "named": false
           },
@@ -781,7 +785,23 @@
             "named": false
           },
           {
+            "type": "guards",
+            "named": false
+          },
+          {
             "type": "ignore-comments",
+            "named": false
+          },
+          {
+            "type": "lazy",
+            "named": false
+          },
+          {
+            "type": "no-cd",
+            "named": false
+          },
+          {
+            "type": "no-exit-message",
             "named": false
           },
           {
@@ -1193,6 +1213,10 @@
     "named": false
   },
   {
+    "type": "dotenv-override",
+    "named": false
+  },
+  {
     "type": "dotenv-path",
     "named": false
   },
@@ -1225,6 +1249,10 @@
     "named": false
   },
   {
+    "type": "guards",
+    "named": false
+  },
+  {
     "type": "identifier",
     "named": true
   },
@@ -1245,7 +1273,19 @@
     "named": true
   },
   {
+    "type": "lazy",
+    "named": false
+  },
+  {
     "type": "mod",
+    "named": false
+  },
+  {
+    "type": "no-cd",
+    "named": false
+  },
+  {
+    "type": "no-exit-message",
     "named": false
   },
   {

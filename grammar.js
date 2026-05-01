@@ -158,11 +158,16 @@ export default grammar({
     //               | 'allow-duplicate-variables' boolean?
     //               | 'dotenv-filename' ':=' string
     //               | 'dotenv-load' boolean?
+    //               | 'dotenv-override' boolean?
     //               | 'dotenv-path' ':=' string
     //               | 'dotenv-required' boolean?
     //               | 'export' boolean?
     //               | 'fallback' boolean?
+    //               | 'guards' boolean?
     //               | 'ignore-comments' boolean?
+    //               | 'lazy' boolean?
+    //               | 'no-cd' boolean?
+    //               | 'no-exit-message' boolean?
     //               | 'positional-arguments' boolean?
     //               | 'script-interpreter' ':=' string_list
     //               | 'quiet' boolean?
@@ -178,11 +183,16 @@ export default grammar({
         set_variant("allow-duplicate-variables", $.boolean, true),
         set_variant("dotenv-filename", $.string),
         set_variant("dotenv-load", $.boolean, true),
+        set_variant("dotenv-override", $.boolean, true),
         set_variant("dotenv-path", $.string),
         set_variant("dotenv-required", $.boolean, true),
         set_variant("export", $.boolean, true),
         set_variant("fallback", $.boolean, true),
+        set_variant("guards", $.boolean, true),
         set_variant("ignore-comments", $.boolean, true),
+        set_variant("lazy", $.boolean, true),
+        set_variant("no-cd", $.boolean, true),
+        set_variant("no-exit-message", $.boolean, true),
         set_variant("positional-arguments", $.boolean, true),
         set_variant("script-interpreter", $.string_list),
         set_variant("quiet", $.boolean, true),
