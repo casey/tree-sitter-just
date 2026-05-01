@@ -14,3 +14,10 @@ bar:
 baz: foo \
     bar
 #   ^^^ function.call
+
+# For module import in recipes.just
+call_me:
+  echo "you called?"
+
+hello name:
+  echo {{ 'hello ' + name }}

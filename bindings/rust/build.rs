@@ -9,12 +9,18 @@ fn main() {
 
     if std::env::var("TARGET").unwrap() == "wasm32-unknown-unknown" {
         let Ok(wasm_headers) = std::env::var("DEP_TREE_SITTER_LANGUAGE_WASM_HEADERS") else {
-            panic!("Environment variable DEP_TREE_SITTER_LANGUAGE_WASM_HEADERS must be set by the language crate");
+            panic!(
+                "Environment variable DEP_TREE_SITTER_LANGUAGE_WASM_HEADERS \
+                 must be set by the language crate"
+            );
         };
         let Ok(wasm_src) =
             std::env::var("DEP_TREE_SITTER_LANGUAGE_WASM_SRC").map(std::path::PathBuf::from)
         else {
-            panic!("Environment variable DEP_TREE_SITTER_LANGUAGE_WASM_SRC must be set by the language crate");
+            panic!(
+                "Environment variable DEP_TREE_SITTER_LANGUAGE_WASM_SRC must \
+                 be set by the language crate"
+            );
         };
 
         c_config.include(&wasm_headers);

@@ -37,13 +37,15 @@
   name: (identifier) @function)
 
 (dependency
-  name: (identifier) @function.call)
+  name: (target) @function.call)
 
 (dependency_expression
-  name: (identifier) @function.call)
+  name: (target) @function.call)
 
 (function_call
   name: (identifier) @function.call)
+
+(assert) @function.call
 
 ; Parameters
 
@@ -59,21 +61,32 @@
 
 [
   ":="
-  "?"
   "=="
   "!="
   "=~"
-  "@"
   "="
   "$"
   "*"
   "+"
   "&&"
-  "@-"
-  "-@"
-  "-"
+  "||"
   "/"
   ":"
+  "@"
+  "-"
+  "?"
+  "@-"
+  "@?"
+  "-@"
+  "-?"
+  "?@"
+  "?-"
+  "@-?"
+  "@?-"
+  "-@?"
+  "-?@"
+  "?@-"
+  "?-@"
 ] @operator
 
 ; Punctuation
@@ -112,36 +125,51 @@
 
 ; highlight known settings (filtering does not always work)
 (setting
-  left: (identifier) @keyword
-  (#any-of? @keyword
+  left: [
     "allow-duplicate-recipes"
     "allow-duplicate-variables"
     "dotenv-filename"
     "dotenv-load"
+    "dotenv-override"
     "dotenv-path"
     "dotenv-required"
     "export"
     "fallback"
+    "guards"
     "ignore-comments"
+    "lazy"
+    "no-cd"
+    "no-exit-message"
     "positional-arguments"
+    "quiet"
+    "script-interpreter"
     "shell"
-    "shell-interpreter"
     "tempdir"
+    "unstable"
     "windows-powershell"
     "windows-shell"
-    "working-directory"))
+    "working-directory"
+  ] @keyword)
 
 ; highlight known attributes (filtering does not always work)
 (attribute
   (identifier) @attribute
   (#any-of? @attribute
+    "android"
+    "arg"
     "confirm"
+    "default"
+    "dragonfly"
     "doc"
+    "env"
     "extension"
+    "exit-message"
+    "freebsd"
     "group"
     "linux"
     "macos"
     "metadata"
+    "netbsd"
     "no-cd"
     "no-exit-message"
     "no-quiet"

@@ -108,8 +108,8 @@ foo := if a == "x" {
   "val"
 } else if "1" != "2" {
   foo_fn("val")
-} else if "3" == "4" {
-  if some_bool { val }
+} else if "3" =~ "4" {
+  if os() != "windows" { val } else { "alt" }
 } else { val }
 
 --------------------------------------------------------------------------------
@@ -150,18 +150,25 @@ foo := if a == "x" {
             (expression
               (value
                 (string)))
-            (expression
-              (value
-                (string))))
+            (regex_literal
+              (string)))
           (expression
             (if_expression
               (condition
                 (expression
                   (value
-                    (identifier))))
+                    (function_call
+                      (identifier))))
+                (expression
+                  (value
+                    (string))))
               (expression
                 (value
-                  (identifier))))))
+                  (identifier)))
+              (else_clause
+                (expression
+                  (value
+                    (string)))))))
         (else_clause
           (expression
             (value
@@ -189,6 +196,37 @@ foo := some_fn("param1", param2)
             (expression
               (value
                 (identifier)))))))))
+
+================================================================================
+user-defined function
+================================================================================
+
+my_func(a, b) := if a != b { a } else { b }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function
+    (identifier)
+    (function_parameters
+      (identifier)
+      (identifier))
+    (expression
+      (if_expression
+        (condition
+          (expression
+            (value
+              (identifier)))
+          (expression
+            (value
+              (identifier))))
+        (expression
+          (value
+            (identifier)))
+        (else_clause
+          (expression
+            (value
+              (identifier))))))))
 
 ================================================================================
 export
@@ -248,28 +286,23 @@ mod? qux "PATH"
 set
 ================================================================================
 
-set SOME_BOOL
-set FOO := true
-set dotenv-load
+set quiet
+set unstable := true
 set tempdir := "/tmp/just"
 set shell := ["powershell.exe", "-c"]
 
 --------------------------------------------------------------------------------
 
 (source_file
+  (setting)
   (setting
-    (identifier))
-  (setting
-    (identifier)
     (boolean))
   (setting
-    (identifier))
-  (setting
-    (identifier)
     (string))
   (setting
-    (string)
-    (string)))
+    (string_list
+      (string)
+      (string))))
 
 ================================================================================
 comment
@@ -369,8 +402,176 @@ alias o := open
 
 (source_file
   (alias
-    (attribute
-      (identifier))
+    (attributes
+      (attribute
+        (identifier)))
      (identifier)
-     (identifier)))
+     (target
+       (identifier))))
 
+================================================================================
+assert statement
+================================================================================
+
+_no_windows := assert(os() != "windows", "windows not supported")
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (assert
+        (condition
+          (expression
+            (value
+              (function_call
+                (identifier))))
+          (expression
+            (value
+              (string))))
+        (expression
+          (value
+            (string)))))))
+
+================================================================================
+logical AND expression
+================================================================================
+
+config_dir := x'{{$XDG_CONFIG_HOME}}' && x"/home/{{$USER}}/.config"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (string))
+      (value
+        (string)))))
+
+================================================================================
+logical AND with conjunct expression
+================================================================================
+
+config_dir := x'{{$XDG_CONFIG_HOME}}' && if os() == 'windows' {
+    "some dir"
+  } else {
+    error('''can't find config''')
+  }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (string))
+      (if_expression
+        (condition
+          (expression
+            (value
+              (function_call
+                (identifier))))
+          (expression
+            (value
+              (string))))
+        (expression
+          (value
+            (string)))
+        (else_clause
+          (expression
+            (value
+              (function_call
+                (identifier)
+                (sequence
+                  (expression
+                    (value
+                      (string))))))))))))
+
+================================================================================
+logical OR expression
+================================================================================
+
+prefix := env('PREFIX_DIR', '') || / 'usr' / 'local'
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (function_call
+          (identifier)
+          (sequence
+            (expression
+              (value
+                (string)))
+            (expression
+              (value
+                (string))))))
+      (value
+        (string))
+      (value
+        (string)))))
+
+================================================================================
+logical OR with AND expression
+================================================================================
+
+bar := env('PREFIX_DIR', '') || 'uses /usr/local' && / 'usr' / 'local'
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (function_call
+          (identifier)
+          (sequence
+            (expression
+              (value
+                (string)))
+            (expression
+              (value
+                (string))))))
+      (value
+        (string))
+      (value
+        (string))
+      (value
+        (string)))))
+
+================================================================================
+logical AND with OR expression
+================================================================================
+
+bar := env('PREFIX_DIR', '') && 'uses /usr/local' || / 'usr' / 'local'
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (function_call
+          (identifier)
+          (sequence
+            (expression
+              (value
+                (string)))
+            (expression
+              (value
+                (string))))))
+      (value
+        (string))
+      (value
+        (string))
+      (value
+        (string)))))
