@@ -50,9 +50,11 @@ a := "foo" + \
     (identifier)
     (expression
       (value
-        (string))
+        (string
+          (string_content)))
       (value
-        (string)))))
+        (string
+          (string_content))))))
 
 ================================================================================
 dependency_wrap

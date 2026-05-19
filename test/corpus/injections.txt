@@ -19,7 +19,8 @@ set shell := ["fooshell"]
 
 (source_file
   (setting
-    (string)))
+    (string
+      (string_content))))
 
 ================================================================================
 set shell with args
@@ -31,10 +32,14 @@ set shell := ['nu', '-m', 'light', '-c']
 
 (source_file
   (setting
-    (string)
-    (string)
-    (string)
-    (string)))
+    (string
+      (string_content))
+    (string
+      (string_content))
+    (string
+      (string_content))
+    (string
+      (string_content))))
 
 ================================================================================
 set shell still parse empty

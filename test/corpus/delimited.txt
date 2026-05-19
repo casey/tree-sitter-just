@@ -15,19 +15,22 @@ baz := "a\"\t"
     (identifier)
     (expression
       (value
-        (string))))
-  (assignment
-    (identifier)
-    (expression
-      (value
-        (string))))
+        (string
+          (string_content)))))
   (assignment
     (identifier)
     (expression
       (value
         (string
-          (escape_sequence)
-          (escape_sequence))))))
+          (string_content)))))
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (string
+          (string_content
+            (escape_sequence)
+            (escape_sequence)))))))
 
 ================================================================================
 escape newlines
@@ -44,7 +47,8 @@ b"
     (expression
       (value
         (string
-          (escape_sequence))))))
+          (string_content
+            (escape_sequence)))))))
 
 ================================================================================
 indented basic strings
@@ -68,20 +72,23 @@ jkl
     (identifier)
     (expression
       (value
-        (string))))
-  (assignment
-    (identifier)
-    (expression
-      (value
-        (string))))
+        (string
+          (string_content)))))
   (assignment
     (identifier)
     (expression
       (value
         (string
-          (escape_sequence)
-          (escape_sequence)
-          (escape_sequence))))))
+          (string_content)))))
+  (assignment
+    (identifier)
+    (expression
+      (value
+        (string
+          (string_content
+            (escape_sequence)
+            (escape_sequence)
+            (escape_sequence)))))))
 
 ================================================================================
 indented with nested delim
@@ -99,12 +106,14 @@ bar:= """b
     (identifier)
     (expression
       (value
-        (string))))
+        (string
+          (string_content)))))
   (assignment
     (identifier)
     (expression
       (value
-        (string)))))
+        (string
+          (string_content))))))
 
 ================================================================================
 raw strings
@@ -123,17 +132,20 @@ baz := 'a\"\t'
     (identifier)
     (expression
       (value
-        (string))))
+        (string
+          (string_content)))))
   (assignment
     (identifier)
     (expression
       (value
-        (string))))
+        (string
+          (string_content)))))
   (assignment
     (identifier)
     (expression
       (value
-        (string)))))
+        (string
+          (string_content))))))
 
 ================================================================================
 indented raw strings
@@ -155,17 +167,20 @@ bar:= '''b
     (identifier)
     (expression
       (value
-        (string))))
+        (string
+          (string_content)))))
   (assignment
     (identifier)
     (expression
       (value
-        (string))))
+        (string
+          (string_content)))))
   (assignment
     (identifier)
     (expression
       (value
-        (string)))))
+        (string
+          (string_content))))))
 
 ================================================================================
 indented raw with nested delim
@@ -183,12 +198,14 @@ bar:= '''b
     (identifier)
     (expression
       (value
-        (string))))
+        (string
+          (string_content)))))
   (assignment
     (identifier)
     (expression
       (value
-        (string)))))
+        (string
+          (string_content))))))
 
 ================================================================================
 backticks
