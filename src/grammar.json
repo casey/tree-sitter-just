@@ -1197,7 +1197,34 @@
                 "type": "ALIAS",
                 "content": {
                   "type": "STRING",
+                  "value": "alias"
+                },
+                "named": true,
+                "value": "identifier"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "STRING",
+                  "value": "export"
+                },
+                "named": true,
+                "value": "identifier"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "STRING",
                   "value": "import"
+                },
+                "named": true,
+                "value": "identifier"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "STRING",
+                  "value": "set"
                 },
                 "named": true,
                 "value": "identifier"

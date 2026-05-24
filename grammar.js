@@ -265,7 +265,16 @@ export default grammar({
     recipe_header: ($) =>
       seq(
         optional("@"),
-        field("name", choice($.identifier, alias("import", $.identifier))),
+        field(
+          "name",
+          choice(
+            $.identifier,
+            alias("alias", $.identifier),
+            alias("export", $.identifier),
+            alias("import", $.identifier),
+            alias("set", $.identifier),
+          ),
+        ),
         optional($.parameters),
         ":",
         optional($.dependencies),

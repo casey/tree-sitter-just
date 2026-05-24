@@ -901,3 +901,84 @@ import:
     (recipe_body
       (recipe_line
         (text)))))
+
+================================================================================
+recipe_named_export
+================================================================================
+
+run: export
+
+export: build
+	body
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (recipe_header
+      (identifier)
+      (dependencies
+        (dependency
+          (identifier)))))
+  (recipe
+    (recipe_header
+      (identifier)
+      (dependencies
+        (dependency
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)))))
+
+================================================================================
+recipe_named_alias
+================================================================================
+
+run: alias
+
+alias param:
+	body
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (recipe_header
+      (identifier)
+      (dependencies
+        (dependency
+          (identifier)))))
+  (recipe
+    (recipe_header
+      (identifier)
+      (parameters
+        (parameter
+          (identifier))))
+    (recipe_body
+      (recipe_line
+        (text)))))
+
+================================================================================
+recipe_named_set
+================================================================================
+
+run: set
+
+set:
+	body
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (recipe
+    (recipe_header
+      (identifier)
+      (dependencies
+        (dependency
+          (identifier)))))
+  (recipe
+    (recipe_header
+      (identifier))
+    (recipe_body
+      (recipe_line
+        (text)))))
