@@ -42,6 +42,7 @@ class EggInfo(egg_info):
         super().find_sources()
         self.filelist.recursive_include("queries", "*.scm")
         self.filelist.include("src/tree_sitter/*.h")
+        self.filelist.include("src/*.c")
 
 
 setup(
@@ -63,6 +64,8 @@ setup(
                 ("PY_SSIZE_T_CLEAN", None),
                 ("TREE_SITTER_HIDE_SYMBOLS", None),
             ],
+            # The scanner requires assertions, but Python defines NDEBUG.
+            undef_macros=["NDEBUG"],
             include_dirs=["src"],
             py_limited_api=not get_config_var("Py_GIL_DISABLED"),
         )

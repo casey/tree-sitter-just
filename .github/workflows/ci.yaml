@@ -71,10 +71,46 @@ jobs:
       - name: Test WASM build
         run: just build-wasm
 
+  python:
+    name: Python ${{ matrix.python }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        python: ["3.10", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install build and test dependencies
+        run: python -m pip install build tree-sitter==0.26.0
+      - name: Install the project's Tree-sitter CLI
+        run: |
+          npm ci --ignore-scripts
+          npm rebuild tree-sitter-cli
+      - name: Regenerate Python binding configuration
+        run: |
+          python -c "from pathlib import Path; Path('setup.py').unlink()"
+          npx tree-sitter init --update
+          python configure-python-bindings.py
+      - name: Build source distribution and wheel
+        run: python -m build
+      - name: Install wheel built from source distribution
+        run: python -m pip install --no-index --find-links dist tree-sitter-just
+      - name: Test installed Python binding
+        run: python -m unittest discover -s test/python -v
+
   success:
     needs:
       - codestyle
       - test
+      - python
     runs-on: ubuntu-latest
     # GitHub branch protection is exceedingly silly and treats "jobs skipped because a dependency
     # failed" as success. So we have to do some contortions to ensure the job fails if any of its

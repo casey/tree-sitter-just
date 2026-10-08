@@ -128,7 +128,16 @@ command to explore the resulting parse tree, and
 [`:Inspect`](https://neovim.io/doc/user/lua.html#%3AInspect) to view highlight
 groups.
 
+## Python bindings
+
+`just regen` initializes bindings from Tree-sitter's templates, then runs
+`configure-python-bindings.py` to include the external scanner in source
+distributions and keep the scanner's required assertions enabled.
+Python packaging tests live in `test/python` so regenerating `bindings` does not
+replace them.
+
 ## Quirks of Just
+
 
 Just currently doesn't seem to support comments between attributes or within if
 statements, so we do not either.

@@ -342,6 +342,7 @@ regen:
 	rm -f CMakeLists.txt Makefile Package.swift binding.gyp go.mod pyproject.toml setup.py
 	rm -rf bindings
 	tree-sitter init --update
+	python3 configure-python-bindings.py
 	just gen
 
 
